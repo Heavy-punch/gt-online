@@ -1,0 +1,11 @@
+.education {
+  &__group {
+    padding: 1rem 3rem !important;
+    border: 1px solid lightgray;
+    border-radius: 3px;
+    margin-bottom: 1rem;
+    .deleteBtn {
+      padding: 0.1rem !important;
+    }
+  }
+}

@@ -1,0 +1,14 @@
+.not-found {
+  img {
+    padding: 0;
+    width: 15rem;
+    height: 15rem;
+  }
+  &__img {
+    margin-left: 3rem;
+  }
+  &__message {
+    display: inline-block;
+    color: var(--bs-danger);
+  }
+}

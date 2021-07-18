@@ -1,0 +1,13 @@
+.register {
+  height: 100%;
+  &__form {
+    max-width: 35rem !important;
+    margin: 2rem auto 1rem auto;
+  }
+  &__title {
+    margin: 5rem 0;
+    text-align: center;
+    color: var(--bs-info);
+    font-weight: bold;
+  }
+}

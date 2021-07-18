@@ -1,0 +1,14 @@
+.edit-profile {
+  height: 100%;
+  // overflow-y: scroll;
+  // overflow-x: hidden;
+  padding-top: 2rem;
+  padding-bottom: 5rem;
+  &__title {
+    text-align: center;
+  }
+  &__form {
+    max-width: 35rem !important;
+    margin: 2rem auto 1rem auto;
+  }
+}

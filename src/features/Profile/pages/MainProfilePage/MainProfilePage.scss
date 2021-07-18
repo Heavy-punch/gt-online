@@ -1,0 +1,69 @@
+.profile {
+  height: 100%;
+  position: relative;
+  .toggle {
+    visibility: visible;
+    opacity: 1 !important;
+  }
+  ul {
+    padding: 0;
+    list-style-type: none;
+
+    li {
+      line-height: 1.5rem;
+    }
+  }
+  hr {
+    opacity: 1;
+  }
+  &__links {
+    @media (min-width: 640px) {
+      position: absolute;
+      top: 0;
+      right: 1rem;
+    }
+    @media (max-width: 639px) {
+      //   position: absolute;
+      //   top: 0;
+      //   left: 1rem;
+
+      //   ul {
+      //     display: flex;
+      //     flex-direction: row;
+      //   }
+
+      text-align: center;
+      position: absolute;
+      width: calc(100%);
+      top: 1.5rem;
+      //   visibility: hidden;
+      opacity: 0;
+      hr {
+        opacity: 0.1;
+      }
+    }
+  }
+  .overlay {
+    @media (max-width: 639px) {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: gray;
+      opacity: 0;
+    }
+    transition: all 150ms ease;
+  }
+
+  &__menu {
+    display: none !important;
+    @media (max-width: 639px) {
+      display: inline-block !important;
+      z-index: 1;
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+  }
+}

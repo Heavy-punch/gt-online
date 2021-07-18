@@ -1,0 +1,27 @@
+.header {
+  font-size: 1.25rem;
+  background-color: #1cb7b7;
+  position: relative;
+  z-index: 2;
+  img {
+    padding: 0;
+    width: 5rem;
+    height: 5rem;
+  }
+  &__logo {
+    &:hover {
+      cursor: pointer;
+      animation: rotate 500ms infinite;
+      // transform: skew(20deg);
+      animation-direction: alternate;
+    }
+  }
+}
+@keyframes rotate {
+  0% {
+    transform: rotate(20deg);
+  }
+  100% {
+    transform: rotate(-20deg);
+  }
+}
