@@ -1,6 +1,7 @@
 import Auth from 'features/Auth';
 import Friend from 'features/Friend';
 import Profile from 'features/Profile';
+import Status from 'features/Status';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import './App.scss';
 import Header from './components/Header';
@@ -17,6 +18,7 @@ function App() {
             <Route path="/auth" component={Auth} />
             <Route path="/profile" component={Profile} />
             <Route path="/friend" component={Friend} />
+            <Route path="/status" component={Status} />
             <Route component={NotFound} />
           </Switch>
         </div>

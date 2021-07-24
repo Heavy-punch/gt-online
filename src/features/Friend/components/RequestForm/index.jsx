@@ -6,39 +6,35 @@ import { useHistory } from 'react-router-dom';
 import { Button, FormGroup, Spinner } from 'reactstrap';
 import * as Yup from 'yup';
 
-RegisterForm.propTypes = {
+RequestForm.propTypes = {
     onSubmit: PropTypes.func,
+    requestFriend: PropTypes.object.isRequired,
 };
 
 
-RegisterForm.defaultProps = {
+RequestForm.defaultProps = {
     onSubmit: null,
 }
 
 const RegisterSchema = Yup.object().shape({
-    firstName: Yup.string().required('First Name is required'),
-    lastName: Yup.string().required('Last Name is required'),
-    email: Yup.string().email('Invalid email').required('Email is required'),
-    password: Yup.string().required('Password is required'),
-    passwordConfirmation: Yup.string().required('Password is required')
-        .oneOf([Yup.ref('password'), null], 'Passwords must match')
+    name: Yup.string().required('Name is required'),
+    hometown: Yup.string().required('Hometown is required'),
+    relationship: Yup.string().required('relationship is required'),
 });
-function RegisterForm(props) {
+function RequestForm(props) {
     const history = useHistory();
-    const { onSubmit } = props;
+    const { onSubmit, requestFriend } = props;
 
     const handleCancelClick = () => {
-        history.push('/auth');
+        history.goBack();
     }
     return (
         <div>
             <Formik
                 initialValues={{
-                    firstName: '',
-                    lastName: '',
-                    email: '',
-                    password: '',
-                    passwordConfirmation: '',
+                    name: requestFriend.firstName + " " + requestFriend.lastName,
+                    hometown: requestFriend.hometown,
+                    relationship: '',
                 }}
                 validationSchema={RegisterSchema}
                 onSubmit={onSubmit}
@@ -49,46 +45,29 @@ function RegisterForm(props) {
                     return (
                         <Form>
                             <FastField
-                                name="firstName"
+                                name="name"
                                 component={InputField}
 
-                                label="First Name"
-                                placeholder="Your first name"
+                                label="Name"
+                                type="text"
+                                disabled={true}
+                            />
+                            <FastField
+                                name="hometown"
+                                component={InputField}
+
+                                label="HomeTown"
+                                type="text"
+                                disabled={true}
+                            />
+                            <FastField
+                                name="relationship"
+                                component={InputField}
+
+                                label="Relationship"
+                                placeholder="Your Relationship"
                                 type="text"
                             />
-                            <FastField
-                                name="lastName"
-                                component={InputField}
-
-                                label="Last Name"
-                                placeholder="Your last name"
-                                type="text"
-                            />
-                            <FastField
-                                name="email"
-                                component={InputField}
-
-                                label="Email"
-                                placeholder="Your email address"
-                                type="email"
-                            />
-                            <FastField
-                                name="password"
-                                component={InputField}
-
-                                label="Password"
-                                placeholder="Your password"
-                                type="password"
-                            />
-                            <FastField
-                                name="passwordConfirmation"
-                                component={InputField}
-
-                                label="Confirm Password"
-                                placeholder="Retype your password"
-                                type="password"
-                            />
-
 
 
                             <FormGroup className="justify-content-end d-flex">
@@ -96,7 +75,7 @@ function RegisterForm(props) {
                                     {"cancel"}
                                 </Button>
                                 <Button type="submit" color='primary' className="mt-3">
-                                    {"register"}
+                                    {"Send Friend Request   "}
                                     {isSubmitting && <Spinner size="sm" />}
                                 </Button>
                             </FormGroup>
@@ -108,4 +87,4 @@ function RegisterForm(props) {
     );
 }
 
-export default RegisterForm;
+export default RequestForm;

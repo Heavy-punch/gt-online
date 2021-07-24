@@ -32,7 +32,7 @@ function InputField(props) {
     return (
         <FormGroup row className="mb-3">
             {label && <Label for={name} sm={4}>{label}</Label>}
-            <Col sm={8}>
+            <Col sm={label ? 8 : 12}>
                 <Input
                     id={name}
                     {...field}

@@ -1,0 +1,12 @@
+.friend-list {
+  height: 100%;
+  position: relative;
+  &__title {
+    padding: 2rem 0;
+  }
+  &__link {
+    position: absolute;
+    top: 0;
+    right: 1rem;
+  }
+}

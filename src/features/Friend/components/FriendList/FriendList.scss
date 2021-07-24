@@ -1,0 +1,15 @@
+.font-bold {
+  font-weight: bold !important;
+  padding-left: 0 !important;
+}
+thead button.ascending::after {
+  content: "▼";
+  display: inline-block;
+  margin-left: 1em;
+}
+
+thead button.descending::after {
+  content: "▲";
+  display: inline-block;
+  margin-left: 1em;
+}

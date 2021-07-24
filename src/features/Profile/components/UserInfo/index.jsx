@@ -37,7 +37,7 @@ function UserInfo(props) {
                         </tr>
                         <tr>
                             <th scope="row">Hometown</th>
-                            <td>{data.homeTown}</td>
+                            <td>{data.hometown}</td>
                         </tr>
                         <tr>
                             <th scope="row">Interests</th>

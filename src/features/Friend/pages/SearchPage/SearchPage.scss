@@ -1,4 +1,4 @@
-.register {
+.search {
   height: 100%;
   &__form {
     max-width: 35rem !important;
@@ -9,5 +9,8 @@
     text-align: center;
     color: var(--bs-info);
     font-weight: bold;
+  }
+  &__result {
+    border: 1px solid lightgray;
   }
 }

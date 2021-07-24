@@ -16,7 +16,8 @@ function Profile(props) {
         <Switch>
             {/* <Redirect exact from={match.url} to={`${match.url}/sign-in`} /> */}
             <Route exact path={match.url} component={MainProfilePage} />
-            <Route path={`${match.url}/edit`} component={EditProfilePage} />
+            <Route exact path={`${match.url}/edit`} component={EditProfilePage} />
+            <Route path={`${match.url}/:userId`} component={MainProfilePage} />
 
             <Route component={NotFound} />
         </Switch>

@@ -1,0 +1,19 @@
+.request-pending {
+  height: 100%;
+  &__form {
+    max-width: 25rem !important;
+    margin: 2rem auto 1rem auto;
+  }
+  &__title {
+    margin: 3rem 0 1rem 0 !important;
+    color: var(--bs-black);
+    font-weight: bold;
+  }
+
+  &__people-to-you {
+    border: 1px solid lightgray;
+  }
+  &__you-to-people {
+    border: 1px solid lightgray;
+  }
+}

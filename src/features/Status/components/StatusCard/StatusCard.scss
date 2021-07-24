@@ -1,0 +1,13 @@
+.status-card {
+  margin: 2rem 0;
+  &__comments {
+    margin-left: 1.5rem !important;
+    margin-right: 0rem !important;
+  }
+  &__title {
+    margin-bottom: 1rem;
+  }
+  &__time {
+    padding-right: 1rem;
+  }
+}

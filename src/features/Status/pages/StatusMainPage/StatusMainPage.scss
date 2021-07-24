@@ -1,0 +1,9 @@
+.status {
+  height: 100%;
+  position: relative;
+  &__link {
+    position: absolute;
+    top: 0;
+    right: 1rem;
+  }
+}

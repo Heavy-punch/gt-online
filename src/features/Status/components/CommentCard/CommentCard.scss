@@ -1,0 +1,11 @@
+.comment {
+  position: relative;
+  background-color: lightgray;
+  border: 1px solid rgba($color: black, $alpha: 0.5);
+  margin-bottom: 1rem;
+  i {
+    position: absolute;
+    top: 0.2rem;
+    right: 0.2rem;
+  }
+}
