@@ -42,7 +42,7 @@ function CommentForm(props) {
                                         placeholder="Your Comment..."
                                     />
                                 </Col>
-                                <Col sm={3} className="d-flex align-items-center justify-content-start">
+                                <Col sm={3} className="d-flex align-items-center justify-content-xs-end justify-content-md-start">
                                     <Button type="submit" color='primary' disabled={values["status"] === ""} style={{ fontSize: "0.725rem" }}>
                                         Send
                                         {isSubmitting && <Spinner size="sm" />}

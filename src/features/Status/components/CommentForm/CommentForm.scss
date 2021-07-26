@@ -1,0 +1,5 @@
+.justify-content-xs-end {
+  @media (max-width: 576px) {
+    justify-content: flex-end;
+  }
+}
