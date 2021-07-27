@@ -40,7 +40,7 @@ function PeopleHaveRequested(props) {
                         <td>{item.relationship}</td>
                         <td>
                             <Button
-                                className="mx-1"
+                                className="mx-1 mb-1"
                                 outline
                                 color="primary"
                                 type="button"
@@ -50,7 +50,7 @@ function PeopleHaveRequested(props) {
                                 Accept
                             </Button>
                             <Button
-                                className="mx-1"
+                                className="mx-1 mb-1"
                                 outline
                                 color="secondary"
                                 type="button"

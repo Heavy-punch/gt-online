@@ -1,17 +1,21 @@
 import Images from 'constants/images';
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import { Col, Container, Row } from 'reactstrap';
 import './Header.scss';
 
 Header.propTypes = {};
 
 function Header() {
+    const history = useHistory();
+    const handleClickLogo = () => {
+        history.push("/profile")
+    }
     return (
         <header className="header">
             <Container>
                 <Row className="justify-content-center">
-                    <img className="header__logo" src={Images.LOGO} alt="logo" />
+                    <img className="header__logo" src={Images.LOGO} alt="logo" onClick={handleClickLogo} />
                 </Row>
             </Container>
         </header>
