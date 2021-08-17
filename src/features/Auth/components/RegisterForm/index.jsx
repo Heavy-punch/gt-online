@@ -8,11 +8,13 @@ import * as Yup from 'yup';
 
 RegisterForm.propTypes = {
     onSubmit: PropTypes.func,
+    loading: PropTypes.string
 };
 
 
 RegisterForm.defaultProps = {
     onSubmit: null,
+    loading: "idle",
 }
 
 const RegisterSchema = Yup.object().shape({
@@ -25,7 +27,7 @@ const RegisterSchema = Yup.object().shape({
 });
 function RegisterForm(props) {
     const history = useHistory();
-    const { onSubmit } = props;
+    const { onSubmit, loading } = props;
 
     const handleCancelClick = () => {
         history.push('/auth');
@@ -96,8 +98,8 @@ function RegisterForm(props) {
                                     {"cancel"}
                                 </Button>
                                 <Button type="submit" color='primary' className="mt-3">
-                                    {"register"}
-                                    {isSubmitting && <Spinner size="sm" />}
+                                    {"register   "}
+                                    {loading === "pending" && <Spinner size="sm" />}
                                 </Button>
                             </FormGroup>
                         </Form>

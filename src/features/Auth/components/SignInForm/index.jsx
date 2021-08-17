@@ -7,10 +7,12 @@ import * as Yup from 'yup';
 
 SignInForm.propTypes = {
     onSubmit: PropTypes.func,
+    loading: PropTypes.string,
 };
 
 SignInForm.defaultProps = {
     onSubmit: null,
+    loading: "idle",
 }
 
 const SignupSchema = Yup.object().shape({
@@ -19,7 +21,7 @@ const SignupSchema = Yup.object().shape({
 });
 
 function SignInForm(props) {
-    const { onSubmit } = props;
+    const { onSubmit, loading } = props;
     return (
         <div>
             <Formik
@@ -58,7 +60,7 @@ function SignInForm(props) {
                             <FormGroup className="justify-content-end d-flex">
                                 <Button type="submit" color='primary' className="mt-3">
                                     {"Sign in   "}
-                                    {isSubmitting && <Spinner size="sm" />}
+                                    {loading === "pending" && <Spinner size="sm" />}
                                 </Button>
                             </FormGroup>
                         </Form>
