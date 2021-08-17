@@ -1,10 +1,11 @@
+import MessageBox from 'components/MessageBox';
+import { register } from 'features/Auth/authSlice';
 import RegisterForm from 'features/Auth/components/RegisterForm';
 import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { Container, Row } from 'reactstrap';
 import "./Register.scss";
-import { useDispatch, useSelector } from 'react-redux';
-import { ping, register } from 'features/Auth/authSlice';
-import MessageBox from 'components/MessageBox'
 
 RegisterPage.propTypes = {
 
@@ -12,6 +13,7 @@ RegisterPage.propTypes = {
 
 function RegisterPage(props) {
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const { userInfo, loading, error } = useSelector(state => state.auth);
 
@@ -25,6 +27,12 @@ function RegisterPage(props) {
         }
         dispatch(register(param));
     }
+    useEffect(() => {
+        if (userInfo) {
+            history.push("/profile");
+        }
+    }
+        , [dispatch, userInfo]);
 
     return (
         <div className="register">

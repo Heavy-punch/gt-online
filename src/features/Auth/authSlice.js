@@ -21,14 +21,23 @@ export const ping = createAsyncThunk('ping', async (params, thunkAPI) => {
     return ping;
 });
 
+const initialState = {
+    loading: 'idle',
+    userInfo: undefined,
+    error: undefined,
+}
+
 const authSlice = createSlice({
     name: 'user',
-    initialState: {
-        loading: 'idle',
-        userInfo: undefined,
-        error: undefined,
+    initialState,
+    reducers: {
+        logOut: (state, action) => {
+            // state.loading = 'idle'
+            // state.userInfo = undefined;
+            // state.error = undefined;
+            return initialState;
+        },
     },
-    reducers: {},
     extraReducers: {
         [register.pending]: (state, action) => {
             state.loading = 'pending';
@@ -61,6 +70,6 @@ const authSlice = createSlice({
         },
     }
 });
-
-const { reducer: authReducer } = authSlice;
+const { reducer: authReducer, actions } = authSlice;
+export const { logOut } = actions;
 export default authReducer;

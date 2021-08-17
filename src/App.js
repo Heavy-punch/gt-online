@@ -1,3 +1,4 @@
+import PrivateRoute from 'components/PrivateRoute';
 import Auth from 'features/Auth';
 import Friend from 'features/Friend';
 import Profile from 'features/Profile';
@@ -14,11 +15,11 @@ function App() {
         <Header />
         <div className="content">
           <Switch>
-            <Redirect exact from="/" to="/auth" />
+            <Redirect exact from="/" to="/profile" />
             <Route path="/auth" component={Auth} />
-            <Route path="/profile" component={Profile} />
-            <Route path="/friend" component={Friend} />
-            <Route path="/status" component={Status} />
+            <PrivateRoute path="/profile" component={Profile} />
+            <PrivateRoute path="/friend" component={Friend} />
+            <PrivateRoute path="/status" component={Status} />
             <Route component={NotFound} />
           </Switch>
         </div>
