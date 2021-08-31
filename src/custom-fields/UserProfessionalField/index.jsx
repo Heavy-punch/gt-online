@@ -1,11 +1,11 @@
-import PropTypes from 'prop-types';
-import React, { useRef, useState } from 'react';
-import { FormGroup, Input, Label, FormFeedback, Col, Button, Row } from 'reactstrap';
-import { ErrorMessage, FastField, Field } from 'formik';
+import { EMPLOYER_OPTIONS } from 'constants/global';
 import InputField from 'custom-fields/InputField';
 import SelectField from 'custom-fields/SelectField';
-import { EMPLOYER_OPTIONS, SCHOOL_OPTIONS } from 'constants/global';
-import "./UserProfessionalField.scss"
+import { FastField } from 'formik';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { Button, Col, FormGroup, Label, Row } from 'reactstrap';
+import "./UserProfessionalField.scss";
 
 UserProfessionalField.propTypes = {
     // field: PropTypes.object.isRequired,

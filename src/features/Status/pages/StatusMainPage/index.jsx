@@ -2,16 +2,16 @@ import { ICON_COMMENT, STATUS, USER_PROFILE } from 'constants/global';
 import StatusCard from 'features/Status/components/StatusCard';
 import StatusForm from 'features/Status/components/StatusForm';
 import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Container } from 'reactstrap';
-import "./StatusMainPage.scss"
+import "./StatusMainPage.scss";
 
 StatusMainPage.propTypes = {
 
 };
 
 function StatusMainPage(props) {
-    const history = useHistory();
+    // const history = useHistory();
     const data = USER_PROFILE;
     const status = STATUS;
     const handleStatusSubmit = () => {

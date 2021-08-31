@@ -1,9 +1,8 @@
 import { SEARCH_RESULT } from 'constants/global';
-import SignInForm from 'features/Auth/components/SignInForm';
 import PeopleHaveRequested from 'features/Friend/components/PeopleHaveRequested';
 import YouHaveRequested from 'features/Friend/components/YouHaveRequested';
 import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { Button, Container, Row } from 'reactstrap';
 import "./RequestPendingPage.scss";
 

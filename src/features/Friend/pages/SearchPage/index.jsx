@@ -1,9 +1,8 @@
 import { SEARCH_RESULT } from 'constants/global';
-import RegisterForm from 'features/Auth/components/RegisterForm';
 import SearchForm from 'features/Friend/components/SearchForm';
 import SearchResult from 'features/Friend/components/SearchResult';
 import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { Container, Row } from 'reactstrap';
 import "./SearchPage.scss";
 

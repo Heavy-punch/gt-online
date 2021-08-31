@@ -1,7 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import "./CommentCard.scss"
 import { ICON_COMMENT } from 'constants/global';
+import React from 'react';
+import "./CommentCard.scss";
 
 CommentCard.propTypes = {
 

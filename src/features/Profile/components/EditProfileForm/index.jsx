@@ -43,8 +43,6 @@ function EditProfileForm(props) {
     const history = useHistory();
     const { onSubmit, initialValues } = props;
 
-    // console.log(initialValues);
-
     const handleCancelClick = () => {
         history.push('/profile');
     }
@@ -58,7 +56,7 @@ function EditProfileForm(props) {
             >
                 {formikProps => {
                     // do something here ...
-                    const { values, errors, touched, isSubmitting } = formikProps;
+                    const { isSubmitting } = formikProps;
                     return (
                         <Form>
                             <FastField
@@ -104,13 +102,11 @@ function EditProfileForm(props) {
                             <FieldArray
                                 name="education"
                                 component={UserEducationField}
-                                type="text"
                             />
 
                             <FieldArray
                                 name="professional"
                                 component={UserProfessionalField}
-                                type="text"
                             />
 
                             {/* <FastField
@@ -137,7 +133,7 @@ function EditProfileForm(props) {
                                     {"cancel"}
                                 </Button>
                                 <Button type="submit" color='primary' className="mt-3">
-                                    {"register"}
+                                    {"save"}
                                     {isSubmitting && <Spinner size="sm" />}
                                 </Button>
                             </FormGroup>

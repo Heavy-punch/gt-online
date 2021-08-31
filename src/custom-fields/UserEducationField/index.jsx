@@ -1,11 +1,13 @@
-import PropTypes from 'prop-types';
-import React, { useRef, useState } from 'react';
-import { FormGroup, Input, Label, FormFeedback, Col, Button, Row } from 'reactstrap';
-import { ErrorMessage, FastField, Field } from 'formik';
+import { getSchool } from 'app/appSlice';
 import InputField from 'custom-fields/InputField';
 import SelectField from 'custom-fields/SelectField';
-import { SCHOOL_OPTIONS } from 'constants/global';
-import "./UserEducationField.scss"
+import { FastField } from 'formik';
+import PropTypes from 'prop-types';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Button, Col, FormGroup, Label, Row } from 'reactstrap';
+import { generateSelectOption } from 'utils/common';
+import "./UserEducationField.scss";
 
 UserEducationField.propTypes = {
     // field: PropTypes.object.isRequired,
@@ -15,6 +17,7 @@ UserEducationField.propTypes = {
     label: PropTypes.string,
     placeholder: PropTypes.string,
     disabled: PropTypes.bool,
+    schoolOptions: PropTypes.array
 };
 
 UserEducationField.defaultProps = {
@@ -22,12 +25,23 @@ UserEducationField.defaultProps = {
     label: '',
     placeholder: '',
     disabled: false,
+    schoolOptions: []
 }
 
 function UserEducationField(props) {
     const { form, push, remove, name } = props;
     const { values } = form;
-    // console.log(values[name]);
+    const dispatch = useDispatch();
+
+    const { schoolList, loading, error } = useSelector(state => state.app);
+    // console.log(schoolList);
+    const schoolOptions = schoolList && generateSelectOption(schoolList);
+    console.log(schoolOptions);
+
+    useEffect(() => {
+        dispatch(getSchool());
+    }
+        , [dispatch,]);
 
 
     return (
@@ -51,14 +65,14 @@ function UserEducationField(props) {
             {
                 values[name].map((item, index) => (
                     <Row key={index} className="education__group">
-                        <FastField
+                        {schoolOptions && (<FastField
                             name={`${name}[${index}].school`}
                             component={SelectField}
 
                             label="School"
                             placeholder="your school"
-                            options={SCHOOL_OPTIONS}
-                        />
+                            options={schoolOptions}
+                        />)}
                         <FastField
                             name={`${name}[${index}].graduate`}
                             component={InputField}

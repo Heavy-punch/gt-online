@@ -35,6 +35,7 @@ const authSlice = createSlice({
             // state.loading = 'idle'
             // state.userInfo = undefined;
             // state.error = undefined;
+            localStorage.removeItem("userInfo")
             return initialState;
         },
     },

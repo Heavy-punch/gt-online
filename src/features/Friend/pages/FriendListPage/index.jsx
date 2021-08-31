@@ -1,11 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Container, Row } from 'reactstrap';
-import { Link, useHistory } from 'react-router-dom';
-import "./FriendListPage.scss"
 import { SEARCH_RESULT, USER_PROFILE } from 'constants/global';
-import FriendList from 'features/Friend/components/FriendList';
 import useSortableData from 'custom-hooks/useSortableData';
+import FriendList from 'features/Friend/components/FriendList';
+import React from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import { Container } from 'reactstrap';
+import "./FriendListPage.scss";
 
 FriendListPage.propTypes = {
 

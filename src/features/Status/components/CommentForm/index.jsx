@@ -1,10 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import * as Yup from 'yup';
-import { FastField, Form, Formik } from 'formik';
 import InputField from 'custom-fields/InputField';
-import { Button, Col, FormGroup, Row, Spinner } from 'reactstrap';
-import "./CommentForm.scss"
+import { FastField, Form, Formik } from 'formik';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { Button, Col, Row, Spinner } from 'reactstrap';
+import * as Yup from 'yup';
+import "./CommentForm.scss";
 
 CommentForm.propTypes = {
     onSubmit: PropTypes.func,
@@ -29,7 +29,7 @@ function CommentForm(props) {
             >
                 {formikProps => {
                     // do something here ...
-                    const { values, errors, touched, isSubmitting } = formikProps;
+                    const { values, isSubmitting } = formikProps;
                     return (
                         <Form>
                             <Row>

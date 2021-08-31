@@ -1,8 +1,7 @@
+import { Field } from 'formik';
 import PropTypes from 'prop-types';
-import React, { useRef, useState } from 'react';
-import { FormGroup, Input, Label, FormFeedback, Col, Button, Row } from 'reactstrap';
-import { ErrorMessage, FastField, Field } from 'formik';
-import InputField from 'custom-fields/InputField';
+import React from 'react';
+import { Button, Col, FormGroup, Input, Label, Row } from 'reactstrap';
 
 UserInterestField.propTypes = {
     // field: PropTypes.object.isRequired,

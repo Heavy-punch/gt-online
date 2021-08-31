@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import { Button, Col, Row } from 'reactstrap';
 import CommentCard from '../CommentCard';
-import "./StatusCard.scss"
 import CommentForm from '../CommentForm';
+import "./StatusCard.scss";
 
 StatusCard.propTypes = {
 

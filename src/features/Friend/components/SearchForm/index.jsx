@@ -36,7 +36,7 @@ function SearchForm(props) {
             >
                 {formikProps => {
                     // do something here ...
-                    const { values, errors, touched, isSubmitting } = formikProps;
+                    const { isSubmitting } = formikProps;
 
                     return (
                         <Form>

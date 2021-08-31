@@ -1,9 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Switch, useRouteMatch, Route, Redirect } from 'react-router-dom';
 import NotFound from 'components/NotFound';
-import MainProfilePage from './pages/MainProfilePage';
+import React from 'react';
+import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import EditProfilePage from './pages/EditProfilePage';
+import MainProfilePage from './pages/MainProfilePage';
 
 Profile.propTypes = {
 

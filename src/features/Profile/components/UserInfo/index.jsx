@@ -1,7 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { Col, Container, Row, Table } from 'reactstrap';
-import "./UserInfo.scss"
+import { Col, Row, Table } from 'reactstrap';
+import "./UserInfo.scss";
 
 
 UserInfo.propTypes = {

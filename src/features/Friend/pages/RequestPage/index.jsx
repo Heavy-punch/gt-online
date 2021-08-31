@@ -1,8 +1,7 @@
 import { SEARCH_RESULT } from 'constants/global';
-import SignInForm from 'features/Auth/components/SignInForm';
 import RequestForm from 'features/Friend/components/RequestForm';
 import React from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Container, Row } from 'reactstrap';
 import "./RequestPage.scss";
 

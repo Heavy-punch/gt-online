@@ -1,7 +1,7 @@
 import Images from 'constants/images';
 import React from 'react';
-import { NavLink, useHistory } from 'react-router-dom';
-import { Col, Container, Row } from 'reactstrap';
+import { useHistory } from 'react-router-dom';
+import { Container, Row } from 'reactstrap';
 import './Header.scss';
 
 Header.propTypes = {};

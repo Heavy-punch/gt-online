@@ -1,9 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Switch, useRouteMatch, Route, Redirect } from 'react-router-dom';
 import NotFound from 'components/NotFound';
-import SignInPage from './pages/SignIn';
+import React from 'react';
+import { Redirect, Route, Switch, useRouteMatch } from 'react-router-dom';
 import RegisterPage from './pages/Register';
+import SignInPage from './pages/SignIn';
 
 Auth.propTypes = {
 

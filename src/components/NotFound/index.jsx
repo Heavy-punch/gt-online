@@ -1,7 +1,7 @@
 import Images from 'constants/images';
 import React from 'react';
-import { Col, Container, Row } from 'reactstrap';
-import "./NotFound.scss"
+import { Container, Row } from 'reactstrap';
+import "./NotFound.scss";
 
 
 NotFound.propTypes = {};
