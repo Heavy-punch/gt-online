@@ -17,9 +17,8 @@ export const EMPLOYER_OPTIONS = [
     { value: 5, label: 'F' },
 ];
 export const GENDER_OPTIONS = [
-    { value: 1, label: 'Male' },
-    { value: 2, label: 'Female' },
-    { value: 3, label: 'Other' },
+    { value: "M", label: 'Male' },
+    { value: "F", label: 'Female' },
 ];
 export const USER_PROFILE = {
     id: 123,

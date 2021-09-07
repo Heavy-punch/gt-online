@@ -70,7 +70,7 @@ function UserInfo(props) {
                                 </tr>
                                 <tr>
                                     <th scope="row">Year Graduate</th>
-                                    <td>{item.graduate}</td>
+                                    <td>{item.year_graduated}</td>
                                 </tr>
                             </tbody>
                         </Table>
@@ -96,7 +96,7 @@ function UserInfo(props) {
                                 </tr>
                                 <tr>
                                     <th scope="row">Job Title</th>
-                                    <td>{item.jobTitle}</td>
+                                    <td>{item.job_title}</td>
                                 </tr>
                             </tbody>
                         </Table>

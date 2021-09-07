@@ -1,4 +1,7 @@
 import { getSchool } from 'app/appSlice';
+import CustomErrorMessage from 'components/CustomErrorMessage';
+import LoadingBox from 'components/LoadingBox';
+import MessageBox from 'components/MessageBox';
 import InputField from 'custom-fields/InputField';
 import SelectField from 'custom-fields/SelectField';
 import { FastField } from 'formik';
@@ -6,43 +9,31 @@ import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Col, FormGroup, Label, Row } from 'reactstrap';
-import { generateSelectOption } from 'utils/common';
+import { checkDisable, checkFieldTouched, generateSchoolSelectOption } from 'utils/common';
 import "./UserEducationField.scss";
 
 UserEducationField.propTypes = {
-    // field: PropTypes.object.isRequired,
     form: PropTypes.object.isRequired,
-
-    type: PropTypes.string,
-    label: PropTypes.string,
-    placeholder: PropTypes.string,
-    disabled: PropTypes.bool,
-    schoolOptions: PropTypes.array
 };
 
 UserEducationField.defaultProps = {
-    type: 'text',
-    label: '',
-    placeholder: '',
-    disabled: false,
-    schoolOptions: []
+
 }
 
 function UserEducationField(props) {
-    const { form, push, remove, name } = props;
-    const { values } = form;
     const dispatch = useDispatch();
+    const { form, push, remove, name } = props;
+    const { values, errors, touched } = form;
 
+
+    const showError = errors[name] && checkFieldTouched(touched);
     const { schoolList, loading, error } = useSelector(state => state.app);
-    // console.log(schoolList);
-    const schoolOptions = schoolList && generateSelectOption(schoolList);
-    console.log(schoolOptions);
+    const schoolOptions = schoolList && generateSchoolSelectOption(schoolList);
 
     useEffect(() => {
         dispatch(getSchool());
     }
         , [dispatch,]);
-
 
     return (
         <FormGroup row className="mb-3 education">
@@ -52,29 +43,33 @@ function UserEducationField(props) {
                 </Col>
                 <Col sm={6} xs={6}>
                     <Button
+                        disabled={checkDisable(values[name]) || showError}
                         outline
-                        color="info"
+                        color={showError ? "warning" : "info"}
                         className="p-1"
                         type="button"
-                        onClick={() => push({ school: '', graduate: '' })}
+                        onClick={() => push({ school: '', year_graduated: '' })}
                     >
-                        Add Another School
+                        {showError ? "Something went wrong" : "Add Another School"}
                     </Button>
                 </Col>
             </Row>
+
             {
                 values[name].map((item, index) => (
                     <Row key={index} className="education__group">
-                        {schoolOptions && (<FastField
-                            name={`${name}[${index}].school`}
-                            component={SelectField}
+                        {loading === "pending" ? <LoadingBox />
+                            : error ? <MessageBox variant="error">{error}</MessageBox>
+                                : schoolOptions && (<FastField
+                                    name={`${name}[${index}].school`}
+                                    component={SelectField}
 
-                            label="School"
-                            placeholder="your school"
-                            options={schoolOptions}
-                        />)}
+                                    label="School"
+                                    placeholder="your school"
+                                    options={schoolOptions}
+                                />)}
                         <FastField
-                            name={`${name}[${index}].graduate`}
+                            name={`${name}[${index}].year_graduated`}
                             component={InputField}
 
                             label="Year Graduate"
@@ -94,10 +89,10 @@ function UserEducationField(props) {
                     </Row>
                 ))
             }
-
-
+            <CustomErrorMessage showError={showError} error={errors[name]} />
+            {/* <div className={showError ? 'is-invalid' : ''} style={{ "border": "none", "textAlign": "right", "backgroundColor": "rgba(255,0,0,0.1)", "borderRadius": "4px", "marginLeft": "-12px" }}>{errors[name]}</div> */}
+            {/* <ErrorMessage name={name} component={FormFeedback} /> */}
         </FormGroup>
-
     );
 }
 

@@ -1,11 +1,14 @@
-import { SEARCH_RESULT, USER_PROFILE } from 'constants/global';
+import LoadingBox from 'components/LoadingBox';
+import MessageBox from 'components/MessageBox';
+import { GENDER_OPTIONS, SEARCH_RESULT } from 'constants/global';
+import { logOut } from 'features/Auth/authSlice';
 import UserInfo from 'features/Profile/components/UserInfo';
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { getProfile } from 'features/Profile/profileSlice';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { Button, Container, Row } from 'reactstrap';
 import "./MainProfilePage.scss";
-import { logOut } from 'features/Auth/authSlice';
 MainProfilePage.propTypes = {
 
 };
@@ -13,30 +16,36 @@ MainProfilePage.propTypes = {
 function MainProfilePage(props) {
     const dispatch = useDispatch();
     const { userId } = useParams();
-    // console.log(userId);
-    const data = userId ? SEARCH_RESULT.filter((item) => item.id === parseInt(userId))[0] : USER_PROFILE;
+
+    const { profile, loading, error } = useSelector((state) => state.profile);
+    // console.log(profile);
+
+    useEffect(() => {
+        dispatch(getProfile())
+    }
+        , [dispatch]);
+
+    // prepare data before pass to component to render
+    const prepareData = profile && {
+        firstName: profile.first_name,
+        lastName: profile.last_name,
+        email: profile.email,
+        sex: GENDER_OPTIONS.find(item => item.value === profile.sex).label,
+        birthday: profile.birthdate,
+        currentCity: profile.current_city,
+        hometown: profile.hometown,
+        interests: profile.interests || [],
+        education: profile.education || [],
+        professional: profile.professional || [],
+    }
+    // If request URL has userId then show userinfo for this user, else show profile
+    const data = userId ? SEARCH_RESULT.filter((item) => item.id === parseInt(userId))[0] : prepareData;
 
     const [toggle, setToggle] = useState(false);
 
     const handleLogOut = () => {
         dispatch(logOut())
     };
-
-    // useEffect(() => {
-    //     async function fetchData() {
-    //         try {
-    //             const requestURL = process.env.REACT_APP_API_URL;
-    //             const response = await fetch("http://localhost:8080/ping");
-    //             const responseJSON = await response.json();
-    //             const { data } = responseJSON;
-    //             console.log("responsed data: ", responseJSON);
-    //         } catch (error) {
-    //             console.log("failed to fetch data from server: ", error.message);
-    //         }
-    //     }
-    //     fetchData();
-    // }
-    //     , []);
 
     return (
         <div className="profile">
@@ -62,7 +71,10 @@ function MainProfilePage(props) {
                         <li><Link to="/profile/edit">Edit Profile</Link></li>
                     </ul>
                 </Row>
-                <UserInfo data={data} />
+                {loading === "pending" ? <LoadingBox />
+                    : error ? <MessageBox variant="error">{error}</MessageBox>
+                        : profile && <UserInfo data={data} />
+                }
             </Container>
         </div>
     );

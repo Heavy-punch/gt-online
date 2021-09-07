@@ -21,6 +21,7 @@ EditProfileForm.defaultProps = {
     onSubmit: null,
 }
 
+//date validate helper
 function parseDateString(value, originalValue) {
     const parsedDate = isDate(originalValue)
         ? originalValue
@@ -28,15 +29,57 @@ function parseDateString(value, originalValue) {
 
     return parsedDate;
 }
+
+//array validate 
+Yup.addMethod(Yup.array, 'unique', function (message, mapper = a => a) {
+    return this.test('unique', message, function (list) {
+        return list.length === new Set(list.map(mapper)).size;
+    });
+});
+
+const transformObject = item => {
+    let str = ""
+    for (let prop in item) {
+        str += item[prop]
+    }
+    return str.toUpperCase().replace(/\s/g, '')
+}
+
+
+//
+const prepareProfessionalArray = (item) => {
+    let compareResult = item.length === item.filter(obj => {
+        for (let prop in obj) {
+            if (!obj[prop]) return false
+        }
+        return true
+    }).length
+    console.log(compareResult);
+    return compareResult
+}
+//
+const prepareEducationArray = (item) => {
+    let compareResult = item.length === item.filter(obj => obj.school).length
+    console.log(compareResult);
+    return compareResult
+}
+
 const today = new Date();
 const EditProfileSchema = Yup.object().shape({
-    sex: Yup.number().required('gender is required'),
+    sex: Yup.string().required('gender is required'),
     birthday: Yup.date().transform(parseDateString).max(today).required("you have to complete this field"),
     city: Yup.string().nullable(),
     hometown: Yup.string().nullable(),
-    intersts: Yup.array().nullable(),
-    education: Yup.array().nullable(),
-    professional: Yup.array().nullable(),
+    interests: Yup.array().nullable().unique('interest must be unique'),
+    // education: Yup.array().nullable().unique('education info must be unique', item => transformObject(item)),
+    education: Yup.array().nullable().unique('education info must be unique', item => transformObject(item)).test("education", "please choose school", item => prepareEducationArray(item)),
+    professional: Yup.array().nullable().unique('education info must be unique', item => transformObject(item)).test("professional", "fields should not be empty", item => prepareProfessionalArray(item)),
+    // professional: Yup.array().of(
+    //     Yup.object({
+    //         employer: Yup.string(),
+    //         job_title: Yup.string(),
+    //     }).test((item) => console.log(item))
+    // ).nullable().unique('education info must be unique', item => transformObject(item)),
 });
 
 function EditProfileForm(props) {

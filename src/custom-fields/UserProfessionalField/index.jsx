@@ -1,10 +1,15 @@
-import { EMPLOYER_OPTIONS } from 'constants/global';
+import { getEmployer } from 'app/appSlice';
+import CustomErrorMessage from 'components/CustomErrorMessage';
+import LoadingBox from 'components/LoadingBox';
+import MessageBox from 'components/MessageBox';
 import InputField from 'custom-fields/InputField';
 import SelectField from 'custom-fields/SelectField';
 import { FastField } from 'formik';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Button, Col, FormGroup, Label, Row } from 'reactstrap';
+import { checkDisable, checkFieldTouched, generateEmployerSelectOption } from 'utils/common';
 import "./UserProfessionalField.scss";
 
 UserProfessionalField.propTypes = {
@@ -26,8 +31,19 @@ UserProfessionalField.defaultProps = {
 
 function UserProfessionalField(props) {
     const { form, push, remove, name } = props;
-    const { values } = form;
-    // console.log(values[name]);
+    const { values, errors, touched } = form;
+
+    const showError = errors[name] && checkFieldTouched(touched, name);
+
+    const dispatch = useDispatch();
+
+    const { employerList, loading, error } = useSelector(state => state.app);
+    const employerOptions = employerList && generateEmployerSelectOption(employerList);
+
+    useEffect(() => {
+        dispatch(getEmployer());
+    }
+        , [dispatch,]);
 
 
     return (
@@ -38,29 +54,32 @@ function UserProfessionalField(props) {
                 </Col>
                 <Col sm={6} xs={6}>
                     <Button
+                        disabled={checkDisable(values[name]) || showError}
                         outline
-                        color="info"
+                        color={showError ? "warning" : "info"}
                         className="p-1"
                         type="button"
-                        onClick={() => push({ employer: '', jobTitle: '' })}
+                        onClick={() => push({ employer: '', job_title: '' })}
                     >
-                        Add Another Job
+                        {showError ? "something went wrong" : "Add Another Job"}
                     </Button>
                 </Col>
             </Row>
             {
                 values[name].map((item, index) => (
                     <Row key={index} className="education__group">
-                        <FastField
-                            name={`${name}[${index}].employer`}
-                            component={SelectField}
+                        {loading === "pending" ? <LoadingBox />
+                            : error ? <MessageBox variant="error">{error}</MessageBox>
+                                : employerList && <FastField
+                                    name={`${name}[${index}].employer`}
+                                    component={SelectField}
 
-                            label="Employer"
-                            placeholder="select your job"
-                            options={EMPLOYER_OPTIONS}
-                        />
+                                    label="Employer"
+                                    placeholder="select your job"
+                                    options={employerOptions}
+                                />}
                         <FastField
-                            name={`${name}[${index}].jobTitle`}
+                            name={`${name}[${index}].job_title`}
                             component={InputField}
 
                             label="Job Title"
@@ -80,8 +99,7 @@ function UserProfessionalField(props) {
                     </Row>
                 ))
             }
-
-
+            <CustomErrorMessage showError={showError} error={errors[name]} />
         </FormGroup>
 
     );
