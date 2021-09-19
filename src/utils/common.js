@@ -32,10 +32,25 @@ export const checkDisable = (arrayOfObject) => {
     } return false
 }
 
+export const checkEducationDisable = (arrayOfObject) => {
+    for (let i = 0; i < arrayOfObject.length; i++) {
+        if (arrayOfObject[i].school === '') return true
+    } return false
+}
+
 //check touched
-export const checkFieldTouched = (obj, keyWord = "") => {
+export const checkFieldTouched = (obj, keyWord) => {
     for (let prop in obj) {
-        if (obj[prop] && prop.indexOf(keyWord) >= 0) return true
+        // console.log(prop)
+        // console.log(keyWord)
+        // console.log(prop.match(keyWord))
+        if (obj[prop] && Boolean(prop.match(keyWord))) return true
     }
     return false
 }
+// export const checkFieldTouched = (obj, keyWord = "") => {
+//     for (let prop in obj) {
+//         if (obj[prop] && prop.indexOf(keyWord) >= 0) return true
+//     }
+//     return false
+// }

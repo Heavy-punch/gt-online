@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Col, FormGroup, Label, Row } from 'reactstrap';
-import { checkDisable, checkFieldTouched, generateSchoolSelectOption } from 'utils/common';
+import { checkEducationDisable, checkFieldTouched, generateSchoolSelectOption } from 'utils/common';
 import "./UserEducationField.scss";
 
 UserEducationField.propTypes = {
@@ -25,8 +25,10 @@ function UserEducationField(props) {
     const { form, push, remove, name } = props;
     const { values, errors, touched } = form;
 
+    const patt = `${name}\\[\\d\\].school`
+    const pattObj = new RegExp(patt, "g");
+    const showError = typeof errors[name] === 'string' && checkFieldTouched(touched, pattObj);
 
-    const showError = errors[name] && checkFieldTouched(touched);
     const { schoolList, loading, error } = useSelector(state => state.app);
     const schoolOptions = schoolList && generateSchoolSelectOption(schoolList);
 
@@ -43,12 +45,12 @@ function UserEducationField(props) {
                 </Col>
                 <Col sm={6} xs={6}>
                     <Button
-                        disabled={checkDisable(values[name]) || showError}
+                        disabled={checkEducationDisable(values[name]) || showError}
                         outline
                         color={showError ? "warning" : "info"}
                         className="p-1"
                         type="button"
-                        onClick={() => push({ school: '', year_graduated: '' })}
+                        onClick={() => push({ school: '', year_graduated: "" })}
                     >
                         {showError ? "Something went wrong" : "Add Another School"}
                     </Button>
@@ -72,7 +74,7 @@ function UserEducationField(props) {
                             name={`${name}[${index}].year_graduated`}
                             component={InputField}
 
-                            label="Year Graduate"
+                            label="Year Graduated"
                             placeholder="Year graduate"
                             type="number"
                         />
@@ -90,8 +92,6 @@ function UserEducationField(props) {
                 ))
             }
             <CustomErrorMessage showError={showError} error={errors[name]} />
-            {/* <div className={showError ? 'is-invalid' : ''} style={{ "border": "none", "textAlign": "right", "backgroundColor": "rgba(255,0,0,0.1)", "borderRadius": "4px", "marginLeft": "-12px" }}>{errors[name]}</div> */}
-            {/* <ErrorMessage name={name} component={FormFeedback} /> */}
         </FormGroup>
     );
 }

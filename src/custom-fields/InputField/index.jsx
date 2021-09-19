@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { FormGroup, Input, Label, FormFeedback, Col } from 'reactstrap';
-import { ErrorMessage } from 'formik';
+import { ErrorMessage, getIn } from 'formik';
 
 InputField.propTypes = {
     field: PropTypes.object.isRequired,
@@ -27,7 +27,11 @@ function InputField(props) {
     } = props;
     const { name } = field;
     const { errors, touched } = form;
-    const showError = errors[name] && touched[name];
+    const showError = getIn(errors, name) && getIn(touched, name);
+
+    // const error = getIn(form.errors, name);
+
+    // console.log("input field log: ", error, "----", name);
 
     return (
         <FormGroup row className="mb-3">

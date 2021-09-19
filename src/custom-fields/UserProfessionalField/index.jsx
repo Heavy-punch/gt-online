@@ -33,7 +33,9 @@ function UserProfessionalField(props) {
     const { form, push, remove, name } = props;
     const { values, errors, touched } = form;
 
-    const showError = errors[name] && checkFieldTouched(touched, name);
+    const patt = `${name}\\[\\d\\].`
+    const pattObj = new RegExp(patt, "g");
+    const showError = typeof errors[name] === 'string' && checkFieldTouched(touched, pattObj);
 
     const dispatch = useDispatch();
 
@@ -45,6 +47,7 @@ function UserProfessionalField(props) {
     }
         , [dispatch,]);
 
+    // console.log("fieldarray log: ", errors[name], "-----", name)
 
     return (
         <FormGroup row className="mb-3 education">
@@ -70,7 +73,8 @@ function UserProfessionalField(props) {
                     <Row key={index} className="education__group">
                         {loading === "pending" ? <LoadingBox />
                             : error ? <MessageBox variant="error">{error}</MessageBox>
-                                : employerList && <FastField
+                                : employerList &&
+                                <FastField
                                     name={`${name}[${index}].employer`}
                                     component={SelectField}
 
