@@ -1,19 +1,45 @@
+import MessageBox from "components/MessageBox";
 import { SEARCH_RESULT } from "constants/global";
 import RequestForm from "features/Friend/components/RequestForm";
-import React from "react";
+import { friendCreateRequest, getUserList } from "features/Friend/friendSlice";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { Container, Row } from "reactstrap";
+import { tranformUserData } from "utils/common";
 import "./RequestPage.scss";
 
 RequestPage.propTypes = {};
 
 function RequestPage(props) {
-  const { friendId } = useParams();
-  const handleSubmit = () => {
-    console.log("hello");
+  const { email } = useParams();
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const handleSubmit = async (values) => {
+    // console.log("hello", values);
+    const params = {
+      path: email,
+      body: { relationship: values.relationship },
+    };
+    //dispatch action
+    const dispatchAction = await dispatch(friendCreateRequest(params));
+    //return when success
+    dispatchAction.meta.requestStatus === "fulfilled" &&
+      history.push("/friend/search");
   };
-  const data = SEARCH_RESULT;
-  const requestFriend = data.filter((item) => item.id === +friendId);
+
+  const { error, userList } = useSelector((state) => state.users);
+  // console.log("requestpage userList: ", userList);
+  // console.log("requestpage userList transform: ", tranformUserData(userList));
+
+  useEffect(() => {
+    dispatch(getUserList({ email: email }));
+  }, []);
+
+  const data = SEARCH_RESULT.concat(tranformUserData(userList) || []);
+  const requestFriend = data.filter((item) => item.email === email);
   return (
     <div className="request">
       <Container>
@@ -34,6 +60,7 @@ function RequestPage(props) {
                 requestFriend={requestFriend[0]}
               />
             </div>
+            {error && <MessageBox variant="danger">{error}</MessageBox>}
           </Row>
         )}
       </Container>

@@ -3,8 +3,8 @@ import MessageBox from "components/MessageBox";
 import { SEARCH_RESULT } from "constants/global";
 import SearchForm from "features/Friend/components/SearchForm";
 import SearchResult from "features/Friend/components/SearchResult";
-import { getUserList } from "features/Friend/friendSlice";
-import React from "react";
+import { friendReset, getUserList } from "features/Friend/friendSlice";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { Container, Row } from "reactstrap";
@@ -16,6 +16,11 @@ function SearchPage(props) {
   const searchResult = SEARCH_RESULT;
   const history = useHistory();
   const dispatch = useDispatch();
+  //reset for the first time
+  useEffect(() => {
+    dispatch(friendReset());
+  }, []);
+
   const handleSubmit = (values) => {
     const preparedData = {
       name: values.name,
@@ -24,13 +29,14 @@ function SearchPage(props) {
     };
     dispatch(getUserList(preparedData));
   };
+  //handle result click
   const handleResultClick = (friend) => {
-    const requestFriendUrl = `request/${friend.id}`;
+    const requestFriendUrl = `request/${friend.email}`;
     history.push(requestFriendUrl);
   };
 
   const { loading, userList, error } = useSelector((state) => state.users);
-  //   console.log("list users: ", userList);
+  // console.log("list users: ", userList);
 
   const prepareData = (oldData) => {
     let newData;
@@ -76,7 +82,7 @@ function SearchPage(props) {
             userList && (
               <div className="search__result">
                 <SearchResult
-                  searchResult={prepareData(userList.Users)}
+                  searchResult={prepareData(userList)}
                   onResultNameClick={handleResultClick}
                 />
               </div>

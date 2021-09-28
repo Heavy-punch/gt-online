@@ -14,7 +14,7 @@ function EditProfilePage(props) {
   const dispatch = useDispatch();
   const history = useHistory();
   const handleSubmit = async (values) => {
-    console.log(values);
+    // console.log(values);
     const data = {
       sex: values.sex,
       birthdate: values.birthday.split("-").reverse().join("/"),
